@@ -1,56 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Techniklager Scanner</title>
-<style>
-  body { text-align: center; font-family: sans-serif; }
-  video { width: 90%; max-width: 400px; border: 1px solid #ccc; }
-  #result { font-size: 1.2em; margin-top: 10px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Lagerverwaltung</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    a {
+      display: block;
+      margin: 15px auto;
+      width: 250px;
+      padding: 15px;
+      text-decoration: none;
+      color: white;
+      background: #0077cc;
+      border-radius: 8px;
+    }
+    a:hover { background: #005fa3; }
+  </style>
 </head>
 <body>
-<h1>📦 Techniklager Scanner</h1>
-<p>Mode: <strong id="modeLabel"></strong></p>
-<video id="preview" autoplay playsinline></video>
-<p id="result">Waiting for scan...</p>
-
-<script type="module">
-import { BrowserMultiFormatReader } from 'https://cdn.jsdelivr.net/npm/@zxing/browser@latest/+esm';
-
-const video = document.getElementById('preview');
-const resultEl = document.getElementById('result');
-const modeLabel = document.getElementById('modeLabel');
-
-const params = new URLSearchParams(window.location.search);
-const mode = params.get("mode") || "checkout";
-modeLabel.textContent = mode.toUpperCase();
-
-const codeReader = new BrowserMultiFormatReader();
-const devices = await BrowserMultiFormatReader.listVideoInputDevices();
-const deviceId = devices[0].deviceId;
-
-codeReader.decodeFromVideoDevice(deviceId, video, async (result, err) => {
-  if (result) {
-    const id = result.getText().trim(); // always take the scanned ID
-    console.log("Scanned ID:", id);
-    resultEl.textContent = `Scanning ${id}...`;
-
-    try {
-      const res = await fetch('/api/scan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, mode })
-      });
-      const data = await res.json();
-      if (data.error) resultEl.textContent = data.error;
-      else resultEl.textContent = `Item: ${data.name} → Status: ${data.status}`;
-    } catch (e) {
-      resultEl.textContent = "Error sending scan to server";
-      console.error(e);
-    }
-  }
-});
-</script>
+  <h1>Lagerverwaltung</h1>
+  <h2>Technik</h2>
+  <a href="/tech/scanner.html">Technik - Scan</a>
+  <a href="/tech/dashboard.html">Technik - Dashboard</a>
+  <h2>Getränke</h2>
+  <a href="/drinks/scanner.html">Getränke - Scan</a>
+  <a href="/drinks/dashboard.html">Getränke - Dashboard</a>
 </body>
 </html>
