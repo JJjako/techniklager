@@ -17,23 +17,23 @@ const FILES = {
 };
 
 function getItems(type) {
-  return JSON.parse(fs.readFileSync(FILES[type]));
+  return JSON.parse(fs.readFileSync(FILES[type], "utf8"));
 }
 function saveItems(type, items) {
   fs.writeFileSync(FILES[type], JSON.stringify(items, null, 2));
 }
 
-// Generic scan endpoint
+// --- SCAN endpoint (supports "count") ---
 app.post("/api/:type/scan", (req, res) => {
   const { type } = req.params;
-  const { id, mode } = req.body;
+  const { id, mode, count = 1 } = req.body;
   const items = getItems(type);
   if (!items[id]) return res.status(404).json({ error: "Item not found" });
 
-  // For drinks, we track quantity
   if (type === "drinks") {
-    if (mode === "checkout") items[id].quantity -= 1;
-    else if (mode === "checkin") items[id].quantity += 1;
+    const qty = parseInt(count) || 1;
+    if (mode === "checkout") items[id].quantity -= qty;
+    else if (mode === "checkin") items[id].quantity += qty;
     if (items[id].quantity < 0) items[id].quantity = 0;
   } else {
     items[id].status = mode === "checkout" ? "out" : "available";
@@ -41,11 +41,10 @@ app.post("/api/:type/scan", (req, res) => {
 
   items[id].lastScanned = new Date().toISOString();
   saveItems(type, items);
-
   res.json(items[id]);
 });
 
-// Dashboard data
+// --- Dashboard endpoint ---
 app.get("/api/:type/items", (req, res) => {
   const { type } = req.params;
   res.json(getItems(type));
