@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Box-Scanner</title>
+<style>
+body{font-family:sans-serif;text-align:center;padding:12px}
+video{width:90%;max-width:480px;border:1px solid #ccc;border-radius:6px;margin-top:10px}
+#result{margin-top:15px;font-size:1.1rem}
+.ok{color:#0a0}.err{color:#a00}
+#applyBtn{margin-top:20px;display:none;padding:10px 20px;font-size:1rem;background:#0077cc;color:white;border:none;border-radius:8px;cursor:pointer}
+#applyBtn:hover{background:#005fa3}
+</style>
+</head>
+<body>
+<h1>📦 Box-Zuordnung Scanner</h1>
+<video id="preview" autoplay playsinline></video>
+<p id="result">Warten auf Scan…</p>
+<button id="applyBtn">✅ Nächster Scan</button>
+
+<script type="module">
+import { BrowserMultiFormatReader } from 'https://cdn.jsdelivr.net/npm/@zxing/browser@latest/+esm';
+const video=document.getElementById('preview');
+const resultEl=document.getElementById('result');
+const applyBtn=document.getElementById('applyBtn');
+const reader=new BrowserMultiFormatReader();
+
+async function start(){
+  resultEl.textContent='Warten auf Scan…';resultEl.className='';applyBtn.style.display='none';
+  const cams=await BrowserMultiFormatReader.listVideoInputDevices();
+  if(!cams.length){resultEl.textContent='Keine Kamera gefunden';resultEl.className='err';return;}
+  reader.decodeOnceFromVideoDevice(cams[0].deviceId,video).then(r=>{
+    if(!r)return;handleScan(r.getText().trim());
+  }).catch(e=>{console.error(e);resultEl.textContent='Scan-Fehler';resultEl.className='err';});
+}
+
+async function handleScan(id){
+  resultEl.textContent=`Suche ${id}…`;
+  try{
+    const res=await fetch('/tech/lookup-box',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+    const data=await res.json();
+    if(data.error){resultEl.textContent='❌ '+data.error;resultEl.className='err';}
+    else{
+      resultEl.innerHTML=`🎯 <b>${data.name}</b><br>→ Box <b>${data.box}</b> (${data.regal})`;
+      resultEl.className='ok';
+    }
+  }catch(e){resultEl.textContent='Fehler beim Laden';resultEl.className='err';}
+  applyBtn.style.display='inline-block';
+}
+applyBtn.addEventListener('click',()=>{applyBtn.style.display='none';start();});
+start();
+</script>
+</body>
+</html>

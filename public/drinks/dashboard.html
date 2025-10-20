@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Getränke Dashboard</title>
+<style>
+body{font-family:Arial,sans-serif;margin:20px;background:#f5f5f5}
+h1{margin-bottom:10px}
+table{border-collapse:collapse;width:100%;background:white;box-shadow:0 0 4px rgba(0,0,0,0.1)}
+th,td{border:1px solid #ccc;padding:8px;text-align:center}
+th{background:#eaeaea}
+button{margin-top:12px;padding:8px 16px;font-size:1rem;background:#0077cc;color:white;border:none;border-radius:6px;cursor:pointer}
+button:hover{background:#005fa3}
+#controls{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+</style>
+</head>
+<body>
+<h1>🧃 Getränke Inventur</h1>
+<div id="controls">
+  <button onclick="fetchDrinks()">🔄 Aktualisieren</button>
+  <a href="scanner.html"><button>📷 Scanner öffnen</button></a>
+</div>
+<table><thead><tr><th>Name</th><th>Menge</th></tr></thead><tbody id="drinks-body"></tbody></table>
+<script>
+async function fetchDrinks(){
+  const body=document.getElementById("drinks-body");
+  body.innerHTML="<tr><td colspan='2'>Lade Daten…</td></tr>";
+  try{
+    const res=await fetch("/data/drinks.json");
+    const data=await res.json();
+    body.innerHTML="";
+    Object.values(data).forEach(it=>{
+      const row=document.createElement("tr");
+      row.innerHTML=`<td>${it.name}</td><td>${it.quantity}</td>`;
+      body.appendChild(row);
+    });
+  }catch(e){body.innerHTML="<tr><td colspan='2'>Fehler beim Laden</td></tr>";}
+}
+fetchDrinks();
+</script>
+</body>
+</html>

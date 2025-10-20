@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Dashboard</title>
+<style>
+body{font-family:Arial,sans-serif;margin:20px;background:#f5f5f5}
+h1{margin-bottom:10px}
+table{border-collapse:collapse;width:100%;background:white;box-shadow:0 0 4px rgba(0,0,0,0.1);font-size:0.9rem}
+th,td{border:1px solid #ccc;padding:6px;text-align:center}
+th{background:#eaeaea}
+.available{color:#090;font-weight:bold}
+.unavailable{color:#a00;font-weight:bold}
+button{margin-top:12px;padding:8px 16px;font-size:1rem;background:#0077cc;color:white;border:none;border-radius:6px;cursor:pointer}
+button:hover{background:#005fa3}
+#controls{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+</style>
+</head>
+<body>
+<h1>🔌 Tech & Boxen Inventur</h1>
+<div id="controls">
+  <button onclick="fetchTech()">🔄 Aktualisieren</button>
+  <a href="scanner.html"><button>📷 Check-Scanner</button></a>
+  <a href="scanner_sort.html"><button>📦 Box-Scanner</button></a>
+</div>
+<table>
+<thead>
+<tr>
+<th>#</th><th>ID</th><th>Object Type</th><th>Object Class</th><th>Number</th>
+<th>Make</th><th>Name</th><th>Box</th><th>Regal</th><th>Status</th>
+</tr></thead>
+<tbody id="tech-body"></tbody>
+</table>
+<script>
+async function fetchTech(){
+  const body=document.getElementById("tech-body");
+  body.innerHTML="<tr><td colspan='10'>Lade Daten…</td></tr>";
+  try{
+    const res=await fetch("/data/items.json");
+    const data=await res.json();
+    body.innerHTML="";
+    Object.values(data).forEach(it=>{
+      const row=document.createElement("tr");
+      row.innerHTML=`
+        <td>${it.ListNR||""}</td>
+        <td>${it.ID||""}</td>
+        <td>${it["Object Type"]||""}</td>
+        <td>${it["Object Class"]||""}</td>
+        <td>${it["Object Number"]||""}</td>
+        <td>${it.Make||""}</td>
+        <td>${it.Name||""}</td>
+        <td>${it.Box||""}</td>
+        <td>${it.Regal||""}</td>
+        <td class='${it.available?"available":"unavailable"}'>
+          ${it.available?"✔️":"❌"}
+        </td>`;
+      body.appendChild(row);
+    });
+  }catch(e){body.innerHTML="<tr><td colspan='10'>Fehler beim Laden</td></tr>";}
+}
+fetchTech();
+</script>
+</body>
+</html>
