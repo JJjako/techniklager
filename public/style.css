@@ -1,0 +1,53 @@
+body {
+  font-family: sans-serif;
+  background: #f6f6f6;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #0077aa;
+}
+
+.drink {
+  background: white;
+  margin: 10px auto;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button {
+  margin: 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #0077aa;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005f88;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 60%;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+th {
+  background: #0077aa;
+  color: white;
+}
