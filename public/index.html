@@ -3,14 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Drinkster Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
-    table { margin: auto; border-collapse: collapse; width: 80%; }
-    th, td { border: 1px solid #ccc; padding: 8px; }
-    th { background: #0077aa; color: white; }
-    select, input, button { font-size: 1em; margin: 5px; padding: 5px; }
-    #controls { margin: 20px; }
+    body { font-family: sans-serif; padding: 10px; margin: 0; }
+    h1 { text-align: center; font-size: 1.5em; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      display: block;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      font-size: 1em;
+    }
+    th { background-color: #0077aa; color: white; }
+    #controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    select, input, button {
+      font-size: 1em;
+      padding: 12px;
+      width: 90%;
+      max-width: 300px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #0077aa;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    button:active {
+      background-color: #005f88;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    a {
+      display: block;
+      margin-top: 15px;
+      color: #0077aa;
+    }
   </style>
 </head>
 <body>
@@ -24,8 +67,7 @@
   </table>
 
   <div id="controls">
-    <h2>Checkin / Checkout</h2>
-    <select id="drinkSelect"></select><br>
+    <select id="drinkSelect"></select>
     <input type="number" id="amount" value="1" min="1" max="50">
     <select id="mode">
       <option value="checkout">Ausbuchen</option>
@@ -33,6 +75,7 @@
     </select>
     <button id="applyBtn">✅ Anwenden</button>
     <div id="status"></div>
+    <a href="#">↩️ Zurück</a>
   </div>
 
   <script src="script.js"></script>
