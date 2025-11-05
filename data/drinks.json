@@ -1,52 +1,49 @@
 {
-  "cola": {
-    "name": "Cola (0.33L)",
-    "quantity": 68,
-    "lastScanned": null
-  },
-  "fanta": {
-    "name": "Fanta (0.33L)",
-    "quantity": 228,
-    "lastScanned": "2025-10-17T14:11:23.410Z"
-  },
-  "sprite": {
-    "name": "Sprite (0.33L)",
+  "Cola": {
+    "name": "Cola",
     "quantity": 0,
-    "lastScanned": null
+    "lastUpdated": "2025-11-05T15:19:49.140Z"
   },
-  "mezzomix": {
-    "name": "Mezzo Mix (0.33L)",
-    "quantity": 26,
-    "lastScanned": null
+  "Fanta": {
+    "name": "Fanta",
+    "quantity": 0
   },
-  "wasser": {
-    "name": "Wasser (0.33L)",
-    "quantity": 53,
-    "lastScanned": null
-  },
-  "apfelschorle": {
-    "name": "Apfelschorle (0.33L)",
-    "quantity": 122,
-    "lastScanned": null
-  },
-  "johannisbeere": {
-    "name": "Johannisbeere (0.33L)",
-    "quantity": 135,
-    "lastScanned": null
-  },
-  "zitrone_grapefruit": {
-    "name": "Zitrone-Grapefruit (0.33L)",
-    "quantity": 56,
-    "lastScanned": null
-  },
-  "apfel_limette": {
-    "name": "Apfel Limette (0.33L)",
+  "Sprite": {
+    "name": "Sprite",
     "quantity": 0,
-    "lastScanned": null
+    "lastUpdated": "2025-11-05T15:18:51.808Z"
   },
-  "ACE": {
-    "name": "ACE (0.33L)",
+  "Wasser": {
+    "name": "Mineralwasser",
+    "quantity": 0
+  },
+  "Paulaner Spezi": {
+    "name": "Paulaner Spezi",
     "quantity": 0,
-    "lastScanned": "2025-10-18T12:59:38.413Z"
+    "lastUpdated": "2025-11-05T15:20:14.250Z"
+  },
+  "Apfelschorle": {
+    "name": "Apfelschorle",
+    "quantity": 0
+  },
+  "Mezzo Mix": {
+    "name": "Mezzo Mix",
+    "quantity": 0
+  },
+  "Johannisbeere": {
+    "name": "Johannisbeere",
+    "quantity": 0
+  },
+  "Zitrone-Grapefruit": {
+    "name": "Zitrone-Grapefruit",
+    "quantity": 0
+  },
+  "Apfel-Limette": {
+    "name": "Apfel-Limette",
+    "quantity": 0
+  },
+  "ÁCE": {
+    "name": "ACE",
+    "quantity": 0
   }
 }

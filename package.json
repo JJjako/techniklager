@@ -1,14 +1,15 @@
 {
-  "dependencies": {
-    "csv-parser": "^3.2.0",
-    "express": "^5.1.0",
-    "qrcode": "^1.5.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  },
+  "name": "getraenke-platform",
+  "version": "1.0.0",
+  "description": "Schulprojekt: Getränkeautomat Verwaltung & Inventur",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
     "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4"
   }
 }

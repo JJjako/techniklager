@@ -1,70 +1,40 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lagerverwaltung</title>
-<style>
-  body {
-    font-family: sans-serif;
-    background: #f4f4f4;
-    text-align: center;
-    margin: 0;
-    padding: 2rem;
-  }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-  h2 {
-    margin-top: 2rem;
-    color: #333;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    background: #0077cc;
-    border-radius: 10px;
-    padding: 1.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: background 0.2s;
-  }
-  a:hover {
-    background: #005fa3;
-  }
-  footer {
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    color: #666;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Drinkster Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    table { margin: auto; border-collapse: collapse; width: 80%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #0077aa; color: white; }
+    select, input, button { font-size: 1em; margin: 5px; padding: 5px; }
+    #controls { margin: 20px; }
+  </style>
 </head>
 <body>
-  <h1>📦 Lagerverwaltung</h1>
+  <h1>📊 Drinkster Dashboard</h1>
 
-  <h2>🎛 Technik</h2>
-  <div class="grid">
-    <a href="/tech/scanner.html?mode=checkout">🔻 Check-out (auslagern)</a>
-    <a href="/tech/scanner.html?mode=checkin">🔺 Check-in (einlagern)</a>
-    <a href="/tech/dashboard.html">📋 Technik-Dashboard</a>
+  <table>
+    <thead>
+      <tr><th>Getränk</th><th>Bestand</th><th>Letzte Änderung</th></tr>
+    </thead>
+    <tbody id="dashboardBody"></tbody>
+  </table>
+
+  <div id="controls">
+    <h2>Checkin / Checkout</h2>
+    <select id="drinkSelect"></select><br>
+    <input type="number" id="amount" value="1" min="1" max="50">
+    <select id="mode">
+      <option value="checkout">Ausbuchen</option>
+      <option value="checkin">Einbuchen</option>
+    </select>
+    <button id="applyBtn">✅ Anwenden</button>
+    <div id="status"></div>
   </div>
 
-  <h2>🧃 Getränke</h2>
-  <div class="grid">
-    <a href="/drinks/scanner.html?mode=checkout">🔻 Check-out (ausgeben)</a>
-    <a href="/drinks/scanner.html?mode=checkin">🔺 Check-in (Lieferung)</a>
-    <a href="/drinks/dashboard.html">📊 Getränke-Dashboard</a>
-  </div>
-
-  <footer>© Techniklager & Getränkeautomat Verwaltung</footer>
+  <script src="script.js"></script>
 </body>
 </html>
